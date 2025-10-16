@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build XP app",
+      "type": "shell",
+      "command": "C:\\Windows\\Microsoft.NET\\Framework\\v3.5\\MSBuild.exe",
+      "args": ["D:\\Developer_D\\cs\\TokenizerDesktop\\TokenizerDesktop.csproj"],
+      "group": "build"
+    }
+  ]
+}
