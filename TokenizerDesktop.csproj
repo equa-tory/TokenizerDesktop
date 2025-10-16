@@ -25,5 +25,14 @@
     <!-- add other .cs files here -->
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Data.SQLite">
+        <HintPath>Database\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Speech.dll">
+        <HintPath>Database\System.Speech.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,3 +3,4 @@ D:\Developer_D\cs\TokenizerDesktop\bin\Debug\TokenizerDesktop.exe
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\TokenizerDesktop.pdb
 D:\Developer_D\cs\TokenizerDesktop\obj\Debug\TokenizerDesktop.exe
 D:\Developer_D\cs\TokenizerDesktop\obj\Debug\TokenizerDesktop.pdb
+D:\Developer_D\cs\TokenizerDesktop\bin\Debug\System.Data.SQLite.dll
