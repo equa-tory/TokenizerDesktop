@@ -16,50 +16,31 @@ namespace TicketApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // string dbPath = "Database\\tickets.db";
-            // using (SQLiteConnection conn = new SQLiteConnection("Data Source=" + dbPath + ";Version=3;"))
-            // {
-            //     conn.Open();
-
-            //     string sql = "SELECT * FROM Tickets WHERE Called = 0 ORDER BY Id ASC LIMIT 1;";
-            //     using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
-            //     {
-            //         SQLiteDataReader reader = cmd.ExecuteReader();
-            //         if (reader.Read())
-            //         {
-            //             string number = reader["TicketNumber"].ToString();
-            //             string type = reader["TicketType"].ToString();
-            //             string date = reader["CreatedAt"].ToString();
-
-            //             System.Windows.Forms.MessageBox.Show(
-            //                 "Билет №" + number + "\nТип: " + type + "\nДата: " + date,
-            //                 "Информация о билете");
-            //         }
-            //         else
-            //         {
-            //             System.Windows.Forms.MessageBox.Show("Очередь пуста!", "Информация");
-            //         }
-            //         reader.Close();
-            //     }
-            // }
             TicketStorage storage = new TicketStorage();
             List<Ticket> tickets = storage.LoadTickets();
-            tickets.Add(new Ticket
-            {
-                Number = tickets.Count + 1,
-                DatePrinted = DateTime.Now,
-                Called = false,
-                TicketType = "ExamRetake"
-            });
+
+            // добавить новый билет
+            Ticket t = new Ticket();
+            t.Number = tickets.Count + 1;
+            t.DatePrinted = DateTime.Now;
+            t.Called = false;
+            t.TicketType = "ExamRetake";
+            tickets.Add(t);
             storage.SaveTickets(tickets);
 
-            Ticket last = tickets[tickets.Count - 1];
-            MessageBox.Show(
-                "Ticket printed (example)\n" +
-                "№" + last.Number + "\n" +
-                "Дата: " + last.DatePrinted + "\n" +
-                "Тип: " + last.TicketType + "\n" +
-                "Вызван: " + last.Called);
+            // вывести все билеты
+            string all = "Все билеты:\n\n";
+            foreach (Ticket item in tickets)
+            {
+                all += "№" + item.Number +
+                    " | Тип: " + item.TicketType +
+                    " | Дата: " + item.DatePrinted +
+                    " | Вызван: " + (item.Called ? "Да" : "Нет") +
+                    "\n";
+            }
+
+            MessageBox.Show(all, "Список билетов");
+
 
             SoundPlayer player = new SoundPlayer(@"Audio\accept.wav");
             player.PlaySync();

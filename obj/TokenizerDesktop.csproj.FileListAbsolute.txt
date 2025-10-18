@@ -44,3 +44,4 @@ D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\t\9.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\t\accept.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\t\ffmpeg.exe
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\t\welcome.wav
+D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Newtonsoft.Json.dll
