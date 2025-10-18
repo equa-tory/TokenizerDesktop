@@ -7,10 +7,10 @@
     <AssemblyName>TokenizerStudent</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 
-    <!-- Add these lines -->
-    <OutputPath>bin\$(Configuration)\Student\</OutputPath>
-    <IntermediateOutputPath>obj\$(Configuration)\Student\</IntermediateOutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
+
 
   <ItemGroup>
     <Reference Include="System" />

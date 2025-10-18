@@ -9,14 +9,18 @@ namespace TicketApp
         private FormBorderStyle previousFormBorderStyle;
         private System.Drawing.Rectangle previousBounds;
 
+        //--------------------------------------------------------------------------------------------
+
         public StudentForm()
         {
             InitializeComponent();
             this.KeyPreview = true; // чтобы ловить клавиши на форме
-            this.KeyDown += StudentForm_KeyDown;
+            this.KeyDown += Form_KeyDown;
         }
 
-        private void StudentForm_KeyDown(object sender, KeyEventArgs e)
+        //--------------------------------------------------------------------------------------------
+
+        private void Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F11)
             {

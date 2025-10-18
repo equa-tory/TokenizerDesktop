@@ -8,8 +8,8 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 
     <!-- Add these lines -->
-    <OutputPath>bin\$(Configuration)\Teacher\</OutputPath>
-    <IntermediateOutputPath>obj\$(Configuration)\Teacher\</IntermediateOutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
