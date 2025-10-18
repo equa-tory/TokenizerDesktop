@@ -3,13 +3,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TokenizerDesktop</RootNamespace>
-    <AssemblyName>TokenizerDesktop</AssemblyName>
+    <RootNamespace>TokenizerStudent</RootNamespace>
+    <AssemblyName>TokenizerStudent</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 
     <!-- Add these lines -->
-    <OutputPath>bin\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath>bin\$(Configuration)\Student\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\Student\</IntermediateOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
