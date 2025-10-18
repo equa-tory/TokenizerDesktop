@@ -8,5 +8,16 @@
       "args": ["TokenizerDesktop.csproj"],
       "group": "build"
     },
+    {
+      "label": "Run XP app",
+      "type": "shell",
+      "command": "${workspaceFolder}\\bin\\Debug\\TokenizerDesktop.exe",
+      "dependsOn": "Build XP app",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
   ]
 }

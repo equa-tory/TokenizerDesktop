@@ -1,9 +1,4 @@
 D:\Developer_D\cs\TokenizerDesktop\obj\Debug\ResolveAssemblyReference.cache
-D:\Developer_D\cs\TokenizerDesktop\bin\Debug\TokenizerDesktop.exe
-D:\Developer_D\cs\TokenizerDesktop\bin\Debug\TokenizerDesktop.pdb
-D:\Developer_D\cs\TokenizerDesktop\obj\Debug\TokenizerDesktop.exe
-D:\Developer_D\cs\TokenizerDesktop\obj\Debug\TokenizerDesktop.pdb
-D:\Developer_D\cs\TokenizerDesktop\bin\Debug\System.Data.SQLite.dll
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\0-1.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\0-2.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\1.wav
@@ -16,7 +11,6 @@ D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\7.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\8.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\9.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\accept.wav
-D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\welcome.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\converted\0-1.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\converted\0-2.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\converted\1.wav
@@ -44,4 +38,9 @@ D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\t\9.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\t\accept.wav
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\t\ffmpeg.exe
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\t\welcome.wav
+D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Audio\welcome.wav
+D:\Developer_D\cs\TokenizerDesktop\bin\Debug\TokenizerDesktop.exe
+D:\Developer_D\cs\TokenizerDesktop\bin\Debug\TokenizerDesktop.pdb
 D:\Developer_D\cs\TokenizerDesktop\bin\Debug\Newtonsoft.Json.dll
+D:\Developer_D\cs\TokenizerDesktop\obj\Debug\TokenizerDesktop.exe
+D:\Developer_D\cs\TokenizerDesktop\obj\Debug\TokenizerDesktop.pdb
