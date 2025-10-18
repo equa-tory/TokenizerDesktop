@@ -47,11 +47,12 @@ namespace TicketApp
             ToolStripMenuItem timerMenuItem = new ToolStripMenuItem("Скорость очереди");
             timerMenuItem.Click += TimerMenuItem_Click;
 
-            // ToolStripMenuItem timerMenuItem = new ToolStripMenuItem("Выбор принтера");
-            // timerMenuItem.Click += TimerMenuItem_Click;
+            ToolStripMenuItem printerMenuItem = new ToolStripMenuItem("Выбор принтера");
+            printerMenuItem.Click += PrinterMenuItem_Click;
 
             settingsMenu.DropDownItems.Add(ipMenuItem);
             settingsMenu.DropDownItems.Add(timerMenuItem);
+            settingsMenu.DropDownItems.Add(printerMenuItem);
 
             menuStrip.Items.Add(settingsMenu);
 
@@ -83,6 +84,47 @@ namespace TicketApp
             {
                 UpdateTimer(ms);
             }
+        }
+        private void PrinterMenuItem_Click(object sender, EventArgs e)
+        {
+            Form printerForm = new Form();
+            printerForm.Text = "Select Printer";
+            printerForm.Width = 300;
+            printerForm.Height = 150;
+
+            ComboBox combo = new ComboBox();
+            combo.Left = 20;
+            combo.Top = 20;
+            combo.Width = 240;
+
+            // Add installed printers
+            foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            {
+                combo.Items.Add(printer);
+            }
+
+            if (combo.Items.Count > 0)
+                combo.SelectedIndex = 0; // default
+
+            printerForm.Controls.Add(combo);
+
+            // OK button
+            Button okButton = new Button();
+            okButton.Text = "OK";
+            okButton.Left = 20;
+            okButton.Top = 60;
+            okButton.Click += delegate (object s, EventArgs ev)
+{
+    if (combo.SelectedItem != null)
+    {
+        // ticketManager.SelectedPrinter = combo.SelectedItem.ToString(); // TODO: write and read from settings
+        printerForm.Close();
+    }
+};
+
+            printerForm.Controls.Add(okButton);
+
+            printerForm.ShowDialog(); // modal
         }
 
 
