@@ -1,8 +1,9 @@
 using System;
 using System.Windows.Forms;
 using System.Media;
-using System.Data.OleDb;
-
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace TicketApp
 {
@@ -41,8 +42,24 @@ namespace TicketApp
             //         reader.Close();
             //     }
             // }
+            TicketStorage storage = new TicketStorage();
+            List<Ticket> tickets = storage.LoadTickets();
+            tickets.Add(new Ticket
+            {
+                Number = tickets.Count + 1,
+                DatePrinted = DateTime.Now,
+                Called = false,
+                TicketType = "ExamRetake"
+            });
+            storage.SaveTickets(tickets);
 
-            MessageBox.Show("Ticket printed (example)");
+            Ticket last = tickets[tickets.Count - 1];
+            MessageBox.Show(
+                "Ticket printed (example)\n" +
+                "№" + last.Number + "\n" +
+                "Дата: " + last.DatePrinted + "\n" +
+                "Тип: " + last.TicketType + "\n" +
+                "Вызван: " + last.Called);
 
             SoundPlayer player = new SoundPlayer(@"Audio\accept.wav");
             player.PlaySync();
