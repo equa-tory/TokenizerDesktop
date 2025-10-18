@@ -10,6 +10,8 @@ namespace TicketApp
         private FlowLayoutPanel panel;
         private List<Button> buttons = new List<Button>();
 
+        //--------------------------------------------------------------------------------------------
+
         private void InitializeComponent()
         {
             this.Text = "StudentForm";
@@ -22,7 +24,7 @@ namespace TicketApp
             panel.AutoSize = true;
             panel.BackColor = Color.WhiteSmoke;
 
-            foreach (string type in ticketTypes)
+            foreach (string type in ticketManager.GetTypes())
             {
                 Button btn = new Button();
                 btn.Text = type;

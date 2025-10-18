@@ -14,6 +14,7 @@ public class Ticket
 public class TicketManager
 {
     private string filePath = "tickets.json";
+    private AudioManager audioPlayer = new AudioManager();
 
     private string[] ticketTypes = {
         "защита диплома",
@@ -24,6 +25,11 @@ public class TicketManager
     };
 
     //--------------------------------------------------------------------------------------------
+
+    public string[] GetTypes()
+    {
+        return ticketTypes;
+    }
 
     #region Saving/Loading
     public List<Ticket> LoadTickets()
@@ -42,7 +48,7 @@ public class TicketManager
     }
     #endregion
 
-    #region Creating
+    #region Managing
     public Ticket CreateTicket(string type)
     {
         List<Ticket> tickets = LoadTickets();
@@ -63,6 +69,20 @@ public class TicketManager
 
         SaveTickets(tickets);
         return ticket;
+    }
+
+    public Ticket CallNextTicket()
+    {
+        List<Ticket> tickets = LoadTickets();
+        Ticket next = tickets[0];
+
+        if (next != null)
+        {
+            audioPlayer.PlayTicket(next);
+            tickets.RemoveAt(0);
+            SaveTickets(tickets);
+        }
+        return next;
     }
     #endregion
 }
