@@ -8,6 +8,7 @@ namespace TicketApp
         private bool isFullScreen = false;
         private FormBorderStyle previousFormBorderStyle;
         private System.Drawing.Rectangle previousBounds;
+        private TicketManager ticketManager = new TicketManager();
 
         //--------------------------------------------------------------------------------------------
 
@@ -20,6 +21,7 @@ namespace TicketApp
 
         //--------------------------------------------------------------------------------------------
 
+        #region Form Events
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F11)
@@ -48,5 +50,21 @@ namespace TicketApp
                 isFullScreen = false;
             }
         }
+        #endregion
+
+        private void TicketButton_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (btn == null) return;
+
+            string ticketType = btn.Tag.ToString();
+
+            Ticket ticket = ticketManager.CreateTicket(ticketType);
+            // printerManager.PrintTicket(ticket);
+            // audioPlayer.PlayQueueSound(ticket);
+
+            MessageBox.Show("Билет №" + ticket.number.ToString("D3") + "\nТип: " + ticket.type);
+        }
+
     }
 }
