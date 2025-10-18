@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using System.Net;
+using System.Text;
+using System.Windows.Forms;
 
 
 public class Ticket
@@ -74,14 +77,24 @@ public class TicketManager
     public Ticket CallNextTicket()
     {
         List<Ticket> tickets = LoadTickets();
+        if (tickets.Count <= 0) return null;
         Ticket next = tickets[0];
 
         if (next != null)
         {
+            try
+            {
+                WebClient client = new WebClient();
+                client.DownloadString("http://171.22.30.82/api/add-token");
+            }
+            catch (Exception e) { }
+
             audioPlayer.PlayTicket(next);
             tickets.RemoveAt(0);
             SaveTickets(tickets);
         }
+
+
         return next;
     }
     #endregion

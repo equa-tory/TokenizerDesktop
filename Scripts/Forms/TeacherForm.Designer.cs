@@ -43,7 +43,7 @@ namespace TicketApp
             callButton.TabIndex = 1;
             callButton.Text = "Вызвать следующий";
             callButton.UseVisualStyleBackColor = true;
-            callButton.Click += new System.EventHandler(callButton_Click);
+            callButton.Click += new System.EventHandler(this.NextButton_Click);
 
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -51,7 +51,7 @@ namespace TicketApp
             Controls.Add(callButton);
             Controls.Add(ticketList);
             Name = "TeacherForm";
-            Text = "Teacher Queue";
+            Text = "Queue";
             ResumeLayout(false);
         }
     }

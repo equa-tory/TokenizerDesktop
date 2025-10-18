@@ -14,7 +14,7 @@ namespace TicketApp
 
         private void InitializeComponent()
         {
-            this.Text = "StudentForm";
+            this.Text = "Print panel";
 
             panel = new FlowLayoutPanel();
             panel.Dock = DockStyle.Fill;

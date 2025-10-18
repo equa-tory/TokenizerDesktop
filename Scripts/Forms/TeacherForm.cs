@@ -23,17 +23,16 @@ namespace TicketApp
             List<Ticket> activeTickets = ticketManager.LoadTickets();
             foreach (Ticket t in activeTickets)
             {
-                ticketList.Items.Add("№" + t.number + " | " + t.type + " | " + t.timestamp);
+                ticketList.Items.Add("№" + t.number.ToString("D3") + " | " + t.type + " | " + t.timestamp);
             }
         }
-
         private void RefreshTimer_Tick(object sender, EventArgs e)
         {
             RefreshTicketList();
         }
 
 
-        private void callButton_Click(object sender, EventArgs e)
+        private void NextButton_Click(object sender, EventArgs e)
         {
             Ticket next = ticketManager.CallNextTicket();
 
