@@ -18,6 +18,7 @@ public class TicketManager
 {
     private string filePath = "tickets.json";
     private AudioManager audioPlayer = new AudioManager();
+    public string ServerIP = "171.22.30.82";
 
     private string[] ticketTypes = {
         "защита диплома",
@@ -85,7 +86,7 @@ public class TicketManager
             try
             {
                 WebClient client = new WebClient();
-                client.DownloadString("http://171.22.30.82/api/add-token");
+                client.UploadStringAsync(new Uri("http://" + ServerIP + "/api/add-token"), "POST");
             }
             catch (Exception e) { }
 

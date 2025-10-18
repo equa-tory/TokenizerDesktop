@@ -23,25 +23,25 @@ namespace TicketApp
         {
             // Timer
             this.refreshTimer = new System.Windows.Forms.Timer();
-            this.refreshTimer.Interval = 3000; // every 3 seconds
+            this.refreshTimer.Interval = 3000; // every 3 seconds TODO: conifg
             this.refreshTimer.Tick += new System.EventHandler(this.RefreshTimer_Tick);
             this.refreshTimer.Start();
 
-            ticketList = new System.Windows.Forms.ListBox();
+            ticketList = new System.Windows.Forms.ListBox(); // TODO: range select delete
             callButton = new System.Windows.Forms.Button();
             SuspendLayout();
 
             ticketList.FormattingEnabled = true;
-            ticketList.Location = new System.Drawing.Point(10, 10);
+            ticketList.Location = new System.Drawing.Point(10, 30);
             ticketList.Name = "ticketList";
             ticketList.Size = new System.Drawing.Size(360, 199);
             ticketList.TabIndex = 0;
 
-            callButton.Location = new System.Drawing.Point(10, 220);
+            callButton.Location = new System.Drawing.Point(10, 230);
             callButton.Name = "callButton";
             callButton.Size = new System.Drawing.Size(360, 30);
             callButton.TabIndex = 1;
-            callButton.Text = "Вызвать следующий";
+            callButton.Text = "Следующий";
             callButton.UseVisualStyleBackColor = true;
             callButton.Click += new System.EventHandler(this.NextButton_Click);
 
@@ -53,6 +53,11 @@ namespace TicketApp
             Name = "TeacherForm";
             Text = "Queue";
             ResumeLayout(false);
+        }
+
+        public void UpdateTimer(int ms)
+        {
+            refreshTimer.Interval = ms;
         }
     }
 }

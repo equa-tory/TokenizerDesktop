@@ -8,7 +8,7 @@ public class AudioManager
 
     //--------------------------------------------------------------------------------------------
 
-    public void PlayTicket(Ticket ticket)
+    public void PlayTicket(Ticket ticket) // TODO: fix freeze
     {
         player = new SoundPlayer("Audio/gong.wav");
         player.Load();

@@ -63,7 +63,7 @@ namespace TicketApp
             // printerManager.PrintTicket(ticket);
             // audioPlayer.PlayQueueSound(ticket);
 
-            MessageBox.Show("Билет №" + ticket.number.ToString("D3") + "\nТип: " + ticket.type);
+            // MessageBox.Show("Билет №" + ticket.number.ToString("D3") + "\nТип: " + ticket.type);
         }
 
     }
