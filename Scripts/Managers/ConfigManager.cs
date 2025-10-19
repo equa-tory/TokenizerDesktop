@@ -1,33 +1,53 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using System.Net;
-using System.Text;
 using System.Windows.Forms;
 
-namespace TicketApp
+public static class AppConfig
 {
-    public class ConfigManager
+    private static string filePath = Path.Combine(Application.StartupPath, "config.json");
+
+    public static string ServerIP = "171.22.30.82";
+    public static int UpdateTimer = 3000;
+    public static string SelectedPrinter = "Your Printer";
+
+    public static void Load()
     {
-        private static string configFile = Path.Combine(Application.StartupPath, "config.json");
-        public string serverIP = "171.22.30.82";
-        public int updateTimer = 3000;
-        public string selectedPrinter = "Your Printer";
-
-        //--------------------------------------------------------------------------------------------
-
-        public static ConfigManager Load()
+        if (!File.Exists(filePath)) return;
+        try
         {
-            if (!File.Exists(configFile))
-                return new ConfigManager();
-            string json = File.ReadAllText(configFile);
-            return JsonConvert.DeserializeObject<ConfigManager>(json);
+            string json = File.ReadAllText(filePath);
+            AppConfigData obj = JsonConvert.DeserializeObject<AppConfigData>(json);
+            if (obj != null)
+            {
+                ServerIP = obj.ServerIP;
+                UpdateTimer = obj.UpdateTimer;
+                SelectedPrinter = obj.SelectedPrinter;
+            }
         }
+        catch { }
+    }
 
-        public void Save()
+    public static void Save()
+    {
+        try
         {
-            File.WriteAllText(configFile, JsonConvert.SerializeObject(this, Formatting.Indented));
+            // old inline initializer causes CS1526
+            AppConfigData obj = new AppConfigData(); // instantiate first
+            obj.ServerIP = ServerIP;
+            obj.UpdateTimer = UpdateTimer;
+            obj.SelectedPrinter = SelectedPrinter;
+
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(obj, Formatting.Indented));
         }
+        catch { }
+    }
+
+
+    private class AppConfigData
+    {
+        public string ServerIP;
+        public int UpdateTimer;
+        public string SelectedPrinter;
     }
 }

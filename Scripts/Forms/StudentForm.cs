@@ -9,6 +9,7 @@ namespace TicketApp
         private FormBorderStyle previousFormBorderStyle;
         private System.Drawing.Rectangle previousBounds;
         private TicketManager ticketManager = new TicketManager();
+        private PrinterManager printerManager;
 
         //--------------------------------------------------------------------------------------------
 
@@ -17,6 +18,7 @@ namespace TicketApp
             InitializeComponent();
             this.KeyPreview = true; // чтобы ловить клавиши на форме
             this.KeyDown += Form_KeyDown;
+            printerManager = new PrinterManager(AppConfig.SelectedPrinter);
         }
 
         //--------------------------------------------------------------------------------------------
@@ -60,7 +62,7 @@ namespace TicketApp
             string ticketType = btn.Tag.ToString();
 
             Ticket ticket = ticketManager.CreateTicket(ticketType);
-            // printerManager.PrintTicket(ticket); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
+            printerManager.PrintTicket(ticket); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
             // audioPlayer.PlayQueueSound(ticket);
 
             // MessageBox.Show("Билет №" + ticket.number.ToString("D3") + "\nТип: " + ticket.type);

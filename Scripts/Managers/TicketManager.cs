@@ -24,20 +24,18 @@ namespace TicketApp
         // public string ServerIP = "171.22.30.82";
 
         private string[] ticketTypes = {
-            "защита диплома",
-            "сдача задолженности",
-            "сдача зачёта",
-            "сдача отчёта",
-            "сдача экзамена"
+            "Защита диплома",
+            "Сдача задолженности",
+            "Сдача зачёта",
+            "Сдача отчёта",
+            "Сдача экзамена"
         };
-
-        private ConfigManager configManager;
 
         //--------------------------------------------------------------------------------------------
 
-        // public TicketManager(ConfigManager configManager)
+        // public TicketManager(ConfigManager config)
         // {
-        //     this.configManager = configManager;
+        //     this.configManager = config;
         // }
 
         //--------------------------------------------------------------------------------------------
@@ -98,7 +96,7 @@ namespace TicketApp
                 try
                 {
                     WebClient client = new WebClient();
-                    client.UploadStringAsync(new Uri("http://" + "configManager.serverIP" + "/api/add-token"), "POST");
+                    client.UploadStringAsync(new Uri("http://" + AppConfig.ServerIP + "/api/add-token"), "POST");
                 }
                 catch (Exception e) { }
 

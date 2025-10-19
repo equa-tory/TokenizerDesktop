@@ -23,7 +23,7 @@ namespace TicketApp
         {
             // Timer
             this.refreshTimer = new System.Windows.Forms.Timer();
-            this.refreshTimer.Interval = 3000;
+            this.refreshTimer.Interval = AppConfig.UpdateTimer;
             this.refreshTimer.Tick += new System.EventHandler(this.RefreshTimer_Tick);
             this.refreshTimer.Start();
 

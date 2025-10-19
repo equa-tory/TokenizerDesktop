@@ -9,6 +9,7 @@ namespace TicketApp
     {
         private TicketManager ticketManager = new TicketManager();
 
+
         //--------------------------------------------------------------------------------------------
 
         public TeacherForm()
@@ -17,6 +18,7 @@ namespace TicketApp
             RefreshTicketList();
             SetupMenu();
         }
+
 
         private void RefreshTicketList()
         {
@@ -64,10 +66,11 @@ namespace TicketApp
             string input = Microsoft.VisualBasic.Interaction.InputBox(
                 "Enter server IP for requests:",
                 "Server IP",
-                "ticketManager.ServerIP", 0, 0); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
+                AppConfig.ServerIP, 0, 0); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
             if (!string.IsNullOrEmpty(input))
             {
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
+                AppConfig.ServerIP = input;
+                AppConfig.Save(); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
             }
         }
         private void TimerMenuItem_Click(object sender, EventArgs e)
@@ -75,12 +78,14 @@ namespace TicketApp
             string input = Microsoft.VisualBasic.Interaction.InputBox(
                 "Enter queue refresh interval in milliseconds:",
                 "Queue Update Timer",
-                "3000", 0, 0); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
+                AppConfig.UpdateTimer.ToString(), 0, 0); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
 
             int ms; // declare variable here
             if (int.TryParse(input, out ms))
             {
-                UpdateTimer(ms); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
+
+                AppConfig.UpdateTimer = ms;
+                AppConfig.Save(); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
             }
         }
         private void PrinterMenuItem_Click(object sender, EventArgs e)
@@ -101,8 +106,9 @@ namespace TicketApp
                 combo.Items.Add(printer);
             }
 
-            if (combo.Items.Count > 0)
-                combo.SelectedIndex = 0; // default // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
+            combo.SelectedItem = AppConfig.SelectedPrinter;
+            // if (combo.Items.Count > 0)
+            //     combo.SelectedIndex = 0; // default // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
 
             printerForm.Controls.Add(combo);
 
@@ -115,6 +121,8 @@ namespace TicketApp
             {
                 if (combo.SelectedItem != null)
                 {
+                    AppConfig.SelectedPrinter = combo.SelectedItem.ToString();
+                    AppConfig.Save();
                     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
                     printerForm.Close();
                 }

@@ -11,6 +11,7 @@ namespace TicketApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            AppConfig.Load();
             Application.Run(new StudentForm());
         }
 #endif
@@ -21,6 +22,7 @@ namespace TicketApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            AppConfig.Load();
             Application.Run(new TeacherForm());
         }
 #endif
