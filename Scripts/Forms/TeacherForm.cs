@@ -64,12 +64,10 @@ namespace TicketApp
             string input = Microsoft.VisualBasic.Interaction.InputBox(
                 "Enter server IP for requests:",
                 "Server IP",
-                ticketManager.ServerIP, 0, 0); // current default
+                "ticketManager.ServerIP", 0, 0); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
             if (!string.IsNullOrEmpty(input))
             {
-                // Properties.Settings.Default.ServerIP = input; // TODO: read from settings
-                // Properties.Settings.Default.Save();
-                ticketManager.ServerIP = input;
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
             }
         }
         private void TimerMenuItem_Click(object sender, EventArgs e)
@@ -77,12 +75,12 @@ namespace TicketApp
             string input = Microsoft.VisualBasic.Interaction.InputBox(
                 "Enter queue refresh interval in milliseconds:",
                 "Queue Update Timer",
-                "3000", 0, 0); // TODO: read from settings
+                "3000", 0, 0); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
 
             int ms; // declare variable here
             if (int.TryParse(input, out ms))
             {
-                UpdateTimer(ms);
+                UpdateTimer(ms); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
             }
         }
         private void PrinterMenuItem_Click(object sender, EventArgs e)
@@ -104,7 +102,7 @@ namespace TicketApp
             }
 
             if (combo.Items.Count > 0)
-                combo.SelectedIndex = 0; // default
+                combo.SelectedIndex = 0; // default // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
 
             printerForm.Controls.Add(combo);
 
@@ -114,22 +112,16 @@ namespace TicketApp
             okButton.Left = 20;
             okButton.Top = 60;
             okButton.Click += delegate (object s, EventArgs ev)
-{
-    if (combo.SelectedItem != null)
-    {
-        // ticketManager.SelectedPrinter = combo.SelectedItem.ToString(); // TODO: write and read from settings
-        printerForm.Close();
-    }
-};
-
+            {
+                if (combo.SelectedItem != null)
+                {
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
+                    printerForm.Close();
+                }
+            };
             printerForm.Controls.Add(okButton);
-
             printerForm.ShowDialog(); // modal
         }
-
-
-
-
 
 
         private void NextButton_Click(object sender, EventArgs e)

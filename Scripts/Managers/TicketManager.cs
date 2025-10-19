@@ -14,89 +14,102 @@ public class Ticket
     public string type;
 }
 
-public class TicketManager
+namespace TicketApp
 {
-    private string filePath = "tickets.json";
-    private AudioManager audioPlayer = new AudioManager();
-    public string ServerIP = "171.22.30.82";
 
-    private string[] ticketTypes = {
-        "защита диплома",
-        "сдача задолженности",
-        "сдача зачёта",
-        "сдача отчёта",
-        "сдача экзамена"
-    };
-
-    //--------------------------------------------------------------------------------------------
-
-    public string[] GetTypes()
+    public class TicketManager
     {
-        return ticketTypes;
-    }
+        private string filePath = Path.Combine(Application.StartupPath, "tickets.json");
+        private AudioManager audioPlayer = new AudioManager();
+        // public string ServerIP = "171.22.30.82";
 
-    #region Saving/Loading
-    public List<Ticket> LoadTickets()
-    {
-        if (!File.Exists(filePath))
-            return new List<Ticket>();
+        private string[] ticketTypes = {
+            "защита диплома",
+            "сдача задолженности",
+            "сдача зачёта",
+            "сдача отчёта",
+            "сдача экзамена"
+        };
 
-        string json = File.ReadAllText(filePath);
-        return JsonConvert.DeserializeObject<List<Ticket>>(json);
-    }
+        private ConfigManager configManager;
 
-    public void SaveTickets(List<Ticket> tickets)
-    {
-        string json = JsonConvert.SerializeObject(tickets, Formatting.Indented);
-        File.WriteAllText(filePath, json);
-    }
-    #endregion
+        //--------------------------------------------------------------------------------------------
 
-    #region Managing
-    public Ticket CreateTicket(string type)
-    {
-        List<Ticket> tickets = LoadTickets();
-        Ticket ticket = new Ticket();
+        // public TicketManager(ConfigManager configManager)
+        // {
+        //     this.configManager = configManager;
+        // }
 
-        if (tickets.Count > 0)
+        //--------------------------------------------------------------------------------------------
+
+        public string[] GetTypes()
         {
-            Ticket last = tickets[tickets.Count - 1];
-            ticket.number = last.number + 1;
+            return ticketTypes;
         }
-        else
+
+        #region Saving/Loading
+        public List<Ticket> LoadTickets()
         {
-            ticket.number = 0;
+            if (!File.Exists(filePath))
+                return new List<Ticket>();
+
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<Ticket>>(json);
         }
-        ticket.timestamp = DateTime.Now;
-        ticket.type = type;
-        tickets.Add(ticket);
 
-        SaveTickets(tickets);
-        return ticket;
-    }
-
-    public Ticket CallNextTicket()
-    {
-        List<Ticket> tickets = LoadTickets();
-        if (tickets.Count <= 0) return null;
-        Ticket next = tickets[0];
-
-        if (next != null)
+        public void SaveTickets(List<Ticket> tickets)
         {
-            try
+            string json = JsonConvert.SerializeObject(tickets, Formatting.Indented);
+            File.WriteAllText(filePath, json);
+        }
+        #endregion
+
+        #region Managing
+        public Ticket CreateTicket(string type)
+        {
+            List<Ticket> tickets = LoadTickets();
+            Ticket ticket = new Ticket();
+
+            if (tickets.Count > 0)
             {
-                WebClient client = new WebClient();
-                client.UploadStringAsync(new Uri("http://" + ServerIP + "/api/add-token"), "POST");
+                Ticket last = tickets[tickets.Count - 1];
+                ticket.number = last.number + 1;
             }
-            catch (Exception e) { }
+            else
+            {
+                ticket.number = 0;
+            }
+            ticket.timestamp = DateTime.Now;
+            ticket.type = type;
+            tickets.Add(ticket);
 
-            audioPlayer.PlayTicket(next);
-            tickets.RemoveAt(0);
             SaveTickets(tickets);
+            return ticket;
         }
 
+        public Ticket CallNextTicket()
+        {
+            List<Ticket> tickets = LoadTickets();
+            if (tickets.Count <= 0) return null;
+            Ticket next = tickets[0];
 
-        return next;
+            if (next != null)
+            {
+                try
+                {
+                    WebClient client = new WebClient();
+                    client.UploadStringAsync(new Uri("http://" + "configManager.serverIP" + "/api/add-token"), "POST");
+                }
+                catch (Exception e) { }
+
+                audioPlayer.PlayTicket(next);
+                tickets.RemoveAt(0);
+                SaveTickets(tickets);
+            }
+
+
+            return next;
+        }
+        #endregion
     }
-    #endregion
 }

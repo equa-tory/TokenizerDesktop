@@ -60,7 +60,7 @@ namespace TicketApp
             string ticketType = btn.Tag.ToString();
 
             Ticket ticket = ticketManager.CreateTicket(ticketType);
-            // printerManager.PrintTicket(ticket);
+            // printerManager.PrintTicket(ticket); // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TODO: CONFIG
             // audioPlayer.PlayQueueSound(ticket);
 
             // MessageBox.Show("Билет №" + ticket.number.ToString("D3") + "\nТип: " + ticket.type);
