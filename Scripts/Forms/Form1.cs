@@ -1,5 +1,10 @@
 using System;
 using System.Windows.Forms;
+using System.Media;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.IO;
+using System.Drawing.Printing;
 
 namespace TicketApp
 {
@@ -8,11 +13,6 @@ namespace TicketApp
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Ticket printed (example)");
         }
     }
 }
