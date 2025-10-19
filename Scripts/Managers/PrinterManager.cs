@@ -44,10 +44,13 @@ namespace TicketApp
                     e.Graphics.DrawString(ticket.timestamp.ToString("dd.MM.yyyy HH:mm"), smallFont, Brushes.Black, 35, y);
                 };
 
-                // doc.Print();
-                PrintPreviewDialog preview = new PrintPreviewDialog();
-                preview.Document = doc;
-                preview.ShowDialog();
+                ///Print method
+                doc.Print();
+
+                ///Print preview
+                // PrintPreviewDialog preview = new PrintPreviewDialog();
+                // preview.Document = doc;
+                // preview.ShowDialog();
             }
             catch (Exception ex)
             {
