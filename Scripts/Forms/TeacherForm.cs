@@ -8,7 +8,7 @@ namespace TicketApp
     public partial class TeacherForm : Form
     {
         private TicketManager ticketManager = new TicketManager();
-
+        private bool contextMenuOpen = false;
 
         //--------------------------------------------------------------------------------------------
 
@@ -19,9 +19,11 @@ namespace TicketApp
             SetupMenu();
         }
 
+        //--------------------------------------------------------------------------------------------
 
         private void RefreshTicketList()
         {
+            if (contextMenuOpen == true) return;
             ticketList.Items.Clear();
             List<Ticket> activeTickets = ticketManager.LoadTickets();
             foreach (Ticket t in activeTickets)
@@ -46,7 +48,7 @@ namespace TicketApp
             ToolStripMenuItem ipMenuItem = new ToolStripMenuItem("TokenizerWeb IP");
             ipMenuItem.Click += IpMenuItem_Click;
 
-            ToolStripMenuItem timerMenuItem = new ToolStripMenuItem("Скорость очереди");
+            ToolStripMenuItem timerMenuItem = new ToolStripMenuItem("Скорость обновления (мс)");
             timerMenuItem.Click += TimerMenuItem_Click;
 
             ToolStripMenuItem printerMenuItem = new ToolStripMenuItem("Выбор принтера");
@@ -105,6 +107,7 @@ namespace TicketApp
             {
                 combo.Items.Add(printer);
             }
+            combo.Items.Add("None");
 
             combo.SelectedItem = AppConfig.SelectedPrinter;
             // if (combo.Items.Count > 0)
@@ -150,6 +153,41 @@ namespace TicketApp
             }
 
             RefreshTicketList();
+        }
+
+        private void SkipSelected_Click(object sender, EventArgs e)
+        {
+            if (ticketList.SelectedIndices.Count == 0)
+            {
+                MessageBox.Show("Не выбраны билеты для пропуска.", "Информация");
+                return;
+            }
+
+            List<Ticket> tickets = ticketManager.LoadTickets();
+
+            // Build list of selected indexes
+            List<int> indices = new List<int>();
+            foreach (int i in ticketList.SelectedIndices)
+                indices.Add(i);
+
+            // Sort descending (so removing doesn't shift items)
+            indices.Sort();
+            indices.Reverse();
+
+            // Remove them from the list
+            foreach (int index in indices)
+            {
+                if (index >= 0 && index < tickets.Count)
+                    tickets.RemoveAt(index);
+            }
+
+            // Save updated queue
+            ticketManager.SaveTickets(tickets);
+            RefreshTicketList();
+        }
+        private void ContextToggle(object sender, EventArgs e)
+        {
+            contextMenuOpen = !contextMenuOpen;
         }
     }
 }

@@ -31,12 +31,15 @@ namespace TicketApp
             callButton = new System.Windows.Forms.Button();
             SuspendLayout();
 
+            // Ticket List
             ticketList.FormattingEnabled = true;
             ticketList.Location = new System.Drawing.Point(10, 30);
             ticketList.Name = "ticketList";
             ticketList.Size = new System.Drawing.Size(360, 199);
             ticketList.TabIndex = 0;
+            ticketList.SelectionMode = SelectionMode.MultiExtended;
 
+            // Next Button
             callButton.Location = new System.Drawing.Point(10, 230);
             callButton.Name = "callButton";
             callButton.Size = new System.Drawing.Size(360, 30);
@@ -50,8 +53,20 @@ namespace TicketApp
             ClientSize = new System.Drawing.Size(384, 261);
             Controls.Add(callButton);
             Controls.Add(ticketList);
-            Name = "TeacherForm";
+            Name = "Queue";
             Text = "Queue";
+
+            // Context menu
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
+            ToolStripMenuItem skipItem = new ToolStripMenuItem("Пропустить выбранные");
+            skipItem.Click += new System.EventHandler(SkipSelected_Click);
+            contextMenu.Items.Add(skipItem);
+
+            contextMenu.Opening += ContextToggle;
+            contextMenu.Closed += ContextToggle;
+
+            ticketList.ContextMenuStrip = contextMenu;
+
             ResumeLayout(false);
         }
 

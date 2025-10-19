@@ -16,6 +16,7 @@ namespace TicketApp
 
         public void PrintTicket(Ticket ticket)
         {
+            if (printerName == "None") return;
             try
             {
                 PrintDocument doc = new PrintDocument();
