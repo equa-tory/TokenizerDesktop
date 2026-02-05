@@ -1,20 +1,18 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TokenizerDesktop</RootNamespace>
     <AssemblyName>TokenizerDesktop</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 
-    <!-- Add these lines -->
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -28,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Audio\**\*.*">
+    <Content Include="Resources\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

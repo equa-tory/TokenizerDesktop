@@ -5,27 +5,12 @@ namespace TicketApp
 {
     static class Program
     {
-#if STUDENT
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            AppConfig.Load();
-            Application.Run(new StudentForm());
+            Application.Run(new Form1());
         }
-#endif
-
-#if TEACHER
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            AppConfig.Load();
-            Application.Run(new TeacherForm());
-        }
-#endif
-
     }
 }

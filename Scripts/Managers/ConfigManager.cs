@@ -7,7 +7,7 @@ public static class AppConfig
 {
     private static string filePath = Path.Combine(Application.StartupPath, "config.json");
 
-    public static string ServerIP = "171.22.30.82";
+    public static string ServerIP = "171.22.30.82:8000";
     public static int UpdateTimer = 3000;
     public static string SelectedPrinter = "Your Printer";
 

@@ -2,98 +2,31 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build StudentApp",
+      "label": "Build",
       "type": "shell",
       "command": "C:\\Windows\\Microsoft.NET\\Framework\\v3.5\\MSBuild.exe",
-      "args": ["TokenizerStudent.csproj", "/p:DefineConstants=STUDENT"],
+      "args": ["TokenizerDesktop.csproj"],
       "group": "build"
     },
     {
-      "label": "Build TeacherApp",
+      "label": "Build Release",
       "type": "shell",
       "command": "C:\\Windows\\Microsoft.NET\\Framework\\v3.5\\MSBuild.exe",
-      "args": ["TokenizerTeacher.csproj", "/p:DefineConstants=TEACHER"],
-      "group": "build"
-    },
-    {
-      "label": "Build Release StudentApp",
-      "type": "shell",
-      "command": "C:\\Windows\\Microsoft.NET\\Framework\\v3.5\\MSBuild.exe",
-      "args": ["TokenizerStudent.csproj", "/p:DefineConstants=STUDENT", "/p:Configuration=Release"],
-      "group": "build"
-    },
-    {
-      "label": "Build Release TeacherApp",
-      "type": "shell",
-      "command": "C:\\Windows\\Microsoft.NET\\Framework\\v3.5\\MSBuild.exe",
-      "args": ["TokenizerTeacher.csproj", "/p:DefineConstants=TEACHER", "/p:Configuration=Release"],
+      "args": ["TokenizerDesktop.csproj", "/p:Configuration=Release"],
       "group": "build"
     },
 
-
-
     {
-      "label": "Run Student App",
+      "label": "Run App",
       "type": "shell",
-      "command": "${workspaceFolder}\\bin\\Debug\\TokenizerStudent.exe",
-      "dependsOn": "Build StudentApp",
-      "problemMatcher": [],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Run Teacher App",
-      "type": "shell",
-      "command": "${workspaceFolder}\\bin\\Debug\\TokenizerTeacher.exe",
-      "dependsOn": "Build TeacherApp",
-      "problemMatcher": [],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Run Both",
-      "type": "shell",
-      "command": "explorer ${workspaceFolder}\\bin\\Debug",
-      "dependsOn": [ "Build TeacherApp", "Build StudentApp" ],
-      "problemMatcher": [],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Release",
-      "type": "shell",
-      "command": "explorer ${workspaceFolder}\\bin\\Release",
-      "dependsOn": [ "Build Release TeacherApp", "Build Release StudentApp" ],
+      "command": "${workspaceFolder}\\bin\\Debug\\TokenizerDesktop.exe",
+      "dependsOn": "Build",
       "problemMatcher": [],
       "group": {
         "kind": "build",
         "isDefault": true
       }
     }
+
   ]
 }
-
-// {
-//       "label": "Build XP app",
-//       "type": "shell",
-//       "command": "C:\\Windows\\Microsoft.NET\\Framework\\v3.5\\MSBuild.exe",
-//       "args": ["TokenizerDesktop.csproj"],
-//       "group": "build"
-//     },
-//     {
-//       "label": "Run XP app",
-//       "type": "shell",
-//       "command": "${workspaceFolder}\\bin\\Debug\\TokenizerDesktop.exe",
-//       "dependsOn": "Build XP app",
-//       "problemMatcher": [],
-//       "group": {
-//         "kind": "build",
-//         "isDefault": true
-//       }
-//     }
