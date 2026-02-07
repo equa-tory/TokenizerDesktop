@@ -25,5 +25,22 @@ namespace TicketApp
             browser.ObjectForScripting = new ScriptManager();
             browser.Url = new Uri("file:///" + Application.StartupPath + @"\Resources\Pages\test.html");
         }
+
+        protected override async void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+
+            try
+            {
+                string result = await ApiClient.GetTicketTypes();
+                MessageBox.Show(result);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
+
+
 }
