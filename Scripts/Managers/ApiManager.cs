@@ -11,16 +11,18 @@ namespace TicketApp.Managers
     /// </summary>
     public static class ApiManager
     {
-        private const string BaseUrl = "https://equatory.ddns.net:8000";
+        // private const string BaseUrl = "https://equatory.ddns.net:8000";
+        private const string BaseUrl = "http://192.168.1.176:9009";
         private const string TicketTypesPath = "/ticket/types/";
 
         // TLS 1.2 = 0x0C00 (not in SecurityProtocolType enum in .NET 3.5)
-        private const SecurityProtocolType Tls12 = (SecurityProtocolType)0x0C00;
+        // private const SecurityProtocolType Tls12 = (SecurityProtocolType)0x0C00;
 
         static ApiManager()
         {
             // Prefer TLS 1.2 so modern servers accept the connection (Windows 7+ with updates)
-            ServicePointManager.SecurityProtocol = Tls12;
+            // ServicePointManager.SecurityProtocol = (SecurityProtocolType)0x0C00;
+            // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
             // Accept server certificate (e.g. self-signed or custom CA)
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(AcceptCertificate);
         }

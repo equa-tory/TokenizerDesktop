@@ -2,12 +2,21 @@
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
         body { font-family: Segoe UI, Arial; margin: 16px; }
         .loading { color: #666; }
         .error { color: #c00; }
         button { margin: 4px; padding: 8px 12px; cursor: pointer; }
     </style>
+
+    <!-- Полезно для старых IE, чтобы JSON.parse работал на XP -->
+    <script type="text/javascript">
+    // BEGIN json2.js (сжатый вариант)
+    if(!this.JSON){JSON={};}(function(){function f(n){return n<10?"0"+n:n}if(typeof Date.prototype.toJSON!=="function"){Date.prototype.toJSON=function(){return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+f(this.getUTCMonth()+1)+"-"+f(this.getUTCDate())+"T"+f(this.getUTCHours())+":"+f(this.getUTCMinutes())+":"+f(this.getUTCSeconds())+"Z":null;};Boolean.prototype.toJSON=Number.prototype.toJSON=String.prototype.toJSON=function(){return this.valueOf()}}var cx=/[\u0000-\u001f\u007f-\u009f]/g,escapable=/[\\\"\u0000-\u001f\u007f-\u009f]/g,meta={"\\b":"\\b","\\t":"\\t","\\n":"\\n","\\f":"\\f","\\r":"\\r","\"":"\\\"","\\":"\\\\"},gap,indent;JSON.stringify=function(value){return JSON2.stringify(value)};JSON.parse=function(text){return eval("("+text+")")}})();
+    // END json2.js
+    </script>
+
     <script type="text/javascript">
         function loadTicketTypes() {
             var container = document.getElementById('buttons');
@@ -15,7 +24,8 @@
 
             try {
                 var json = window.external.GetTicketTypes();
-                var data = JSON.parse(json);
+                var data;
+                try { data = JSON.parse(json); } catch(e) { data = eval('(' + json + ')'); }
 
                 if (data.error) {
                     container.innerHTML = '<span class="error">' + data.error + '</span>';
@@ -23,30 +33,45 @@
                 }
 
                 container.innerHTML = '';
-                var list = Array.isArray(data) ? data : (data.results || data.types || [data]);
+                var list = data;
+                if (!(list instanceof Array)) {
+                    if (data.results) list = data.results;
+                    else if (data.types) list = data.types;
+                    else list = [data];
+                }
+
                 for (var i = 0; i < list.length; i++) {
                     var item = list[i];
                     var id = item.id || item.slug || item.name || String(i);
                     var title = item.title || item.name || item.display_name || id;
                     var btn = document.createElement('button');
-                    btn.textContent = title;
-                    btn.onclick = (function (tid, ttitle) {
-                        return function () {
+
+                    // textContent не поддерживается, используем innerText
+                    if ('innerText' in btn) btn.innerText = title;
+                    else btn.textContent = title;
+
+                    (function(tid, ttitle){
+                        btn.onclick = function() {
                             var printer = document.getElementById('printer').value;
                             window.external.BookTicket(tid, ttitle, printer);
                         };
                     })(id, title);
+
                     container.appendChild(btn);
                 }
+
                 if (list.length === 0) {
                     container.innerHTML = '<span class="loading">No ticket types returned.</span>';
                 }
+
             } catch (e) {
                 container.innerHTML = '<span class="error">' + e.message + '</span>';
             }
         }
+
     </script>
 </head>
+
 <body>
     <h2>Принтер</h2>
     <p>
