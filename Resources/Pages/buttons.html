@@ -1,7 +1,75 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <style>
+        body { font-family: Segoe UI, Arial; margin: 16px; }
+        .loading { color: #666; }
+        .error { color: #c00; }
+        button { margin: 4px; padding: 8px 12px; cursor: pointer; }
+    </style>
+    <script type="text/javascript">
+        function loadTicketTypes() {
+            var container = document.getElementById('buttons');
+            container.innerHTML = '<span class="loading">Loading ticket types...</span>';
+
+            try {
+                var json = window.external.GetTicketTypes();
+                var data = JSON.parse(json);
+
+                if (data.error) {
+                    container.innerHTML = '<span class="error">' + data.error + '</span>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                var list = Array.isArray(data) ? data : (data.results || data.types || [data]);
+                for (var i = 0; i < list.length; i++) {
+                    var item = list[i];
+                    var id = item.id || item.slug || item.name || String(i);
+                    var title = item.title || item.name || item.display_name || id;
+                    var btn = document.createElement('button');
+                    btn.textContent = title;
+                    btn.onclick = (function (tid, ttitle) {
+                        return function () {
+                            var printer = document.getElementById('printer').value;
+                            window.external.BookTicket(tid, ttitle, printer);
+                        };
+                    })(id, title);
+                    container.appendChild(btn);
+                }
+                if (list.length === 0) {
+                    container.innerHTML = '<span class="loading">No ticket types returned.</span>';
+                }
+            } catch (e) {
+                container.innerHTML = '<span class="error">' + e.message + '</span>';
+            }
+        }
+    </script>
+</head>
 <body>
-    <!-- get buttons as ticket types from api -->
-<button onclick="window.external.BookTicket('standard')">Standard Ticket</button>
-<button onclick="window.external.BookTicket('vip')">VIP Ticket</button>
+    <h2>Принтер</h2>
+    <p>
+        <label for="printer">Выберите принтер: </label>
+        <select id="printer"><option value="None">— Не печатать —</option></select>
+    </p>
+    <h2>Типы талонов</h2>
+    <div id="buttons"><span class="loading">Loading...</span></div>
+    <script type="text/javascript">
+        (function fillPrinters() {
+            try {
+                var json = window.external.GetPrinters();
+                var list = JSON.parse(json);
+                var sel = document.getElementById('printer');
+                for (var i = 0; i < list.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = list[i];
+                    opt.textContent = list[i];
+                    sel.appendChild(opt);
+                }
+            } catch (e) { }
+        })();
+        loadTicketTypes();
+    </script>
 </body>
 </html>
