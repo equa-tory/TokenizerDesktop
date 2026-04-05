@@ -61,15 +61,16 @@ namespace TicketApp
 
             try
             {
-                var obj = Newtonsoft.Json.Linq.JObject.Parse(response);
-                var ticket = obj["ticket"];
+                Newtonsoft.Json.Linq.JObject obj = Newtonsoft.Json.Linq.JObject.Parse(response);
+                Newtonsoft.Json.Linq.JToken ticket = obj["ticket"];
+
                 if (ticket != null)
                 {
                     if (ticket["name"] != null)
                         ticketName = ticket["name"].ToString();
 
                     if (ticket["number"] != null)
-                        ticketNumber = (int)ticket["number"];
+                        ticketNumber = Convert.ToInt32(ticket["number"].ToString());
                 }
             }
             catch
