@@ -48,14 +48,38 @@ namespace TicketApp
         /// </summary>
         public void BookTicket(string typeId, string title, string printerName)
         {
+            int id;
+            if (!int.TryParse(typeId, out id))
+                return;
+
+            // 👉 запрос на сервер
+            string response = ApiManager.CreateTicket(id);
+
+            // можешь потом распарсить JSON если надо
+
+            // 👉 печать (как было)
             if (string.IsNullOrEmpty(printerName) || printerName == "None")
                 return;
+
             Ticket ticket = new Ticket();
             ticket.type = title ?? typeId;
             ticket.number = 0;
             ticket.timestamp = DateTime.Now;
+
             PrinterManager pm = new PrinterManager(printerName);
             pm.PrintTicket(ticket);
+        }
+
+        public string CreateTicket(int typeId)
+        {
+            try
+            {
+                return ApiManager.CreateTicket(typeId);
+            }
+            catch (Exception ex)
+            {
+                return "{\"error\":\"" + ex.Message.Replace("\"", "'") + "\"}";
+            }
         }
     }
 

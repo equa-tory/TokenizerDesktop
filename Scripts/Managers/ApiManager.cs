@@ -55,5 +55,38 @@ namespace TicketApp.Managers
                     response.Close();
             }
         }
+
+        public static string CreateTicket(int ticketTypeId)
+        {
+            string url = BaseUrl + "/ticket/?ticket_type_id=" + ticketTypeId;
+
+            HttpWebRequest request = null;
+            HttpWebResponse response = null;
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "POST";
+                request.ContentType = "application/json";
+                request.Timeout = 15000;
+                request.ReadWriteTimeout = 15000;
+                request.UserAgent = "TicketApp/1.0 (.NET 3.5)";
+                request.KeepAlive = false;
+                request.ContentLength = 0; // важно для POST без body
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                using (Stream responseStream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+            finally
+            {
+                if (response != null)
+                    response.Close();
+            }
+        }
     }
 }
