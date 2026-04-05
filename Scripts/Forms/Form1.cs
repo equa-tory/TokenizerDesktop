@@ -55,20 +55,41 @@ namespace TicketApp
             // 👉 запрос на сервер
             string response = ApiManager.CreateTicket(id);
 
-            // можешь потом распарсить JSON если надо
+            // 👉 парсим JSON ответа
+            string ticketName = title;
+            int ticketNumber = 0;
 
-            // 👉 печать (как было)
+            try
+            {
+                var obj = Newtonsoft.Json.Linq.JObject.Parse(response);
+                var ticket = obj["ticket"];
+                if (ticket != null)
+                {
+                    if (ticket["name"] != null)
+                        ticketName = ticket["name"].ToString();
+
+                    if (ticket["number"] != null)
+                        ticketNumber = (int)ticket["number"];
+                }
+            }
+            catch
+            {
+                // если JSON кривой — просто используем дефолт
+            }
+
+            // 👉 печать
             if (string.IsNullOrEmpty(printerName) || printerName == "None")
                 return;
 
-            Ticket ticket = new Ticket();
-            ticket.type = title ?? typeId;
-            ticket.number = 0;
-            ticket.timestamp = DateTime.Now;
+            Ticket ticketObj = new Ticket();
+            ticketObj.type = ticketName;
+            ticketObj.number = ticketNumber;
+            ticketObj.timestamp = DateTime.Now;
 
             PrinterManager pm = new PrinterManager(printerName);
-            pm.PrintTicket(ticket);
+            pm.PrintTicket(ticketObj);
         }
+
 
         public string CreateTicket(int typeId)
         {
