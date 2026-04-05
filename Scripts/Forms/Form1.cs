@@ -83,8 +83,9 @@ namespace TicketApp
                 return;
 
             Ticket ticketObj = new Ticket();
-            ticketObj.type = ticketName;
+            ticketObj.type = "";
             ticketObj.number = ticketNumber;
+            ticketObj.displayNumber = ticketName;
             ticketObj.timestamp = DateTime.Now;
 
             PrinterManager pm = new PrinterManager(printerName);

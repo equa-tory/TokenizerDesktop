@@ -17,6 +17,7 @@ namespace TicketApp
         public void PrintTicket(Ticket ticket)
         {
             if (printerName == "None") return;
+
             try
             {
                 PrintDocument doc = new PrintDocument();
@@ -24,16 +25,32 @@ namespace TicketApp
 
                 doc.PrintPage += delegate (object sender, PrintPageEventArgs e)
                 {
-                    Font bigFont = new Font("Arial", 69, FontStyle.Bold);
-                    Font font = new Font("Arial", 14, FontStyle.Bold);
-                    Font smallFont = new Font("Arial", 10);
                     float y = 20;
 
-                    e.Graphics.DrawString(ticket.type, font, Brushes.Black, 10, y); y += 40;
-                    e.Graphics.DrawString("Ваш номер очереди:", font, Brushes.Black, 10, y); y += 30;
-                    e.Graphics.DrawString(ticket.number.ToString("D3"), bigFont, Brushes.Black, 10, y); y += 100;
-                    e.Graphics.DrawString("Дата и время выдачи талона:", smallFont, Brushes.Black, 10, y); y += 20;
-                    e.Graphics.DrawString(ticket.timestamp.ToString("dd.MM.yyyy HH:mm"), smallFont, Brushes.Black, 35, y);
+                    // === CONFIG ===
+                    Font headerFont = new Font("Arial", 14, FontStyle.Bold);
+                    Font numberFont = new Font("Arial", 72, FontStyle.Bold);
+                    Font smallFont = new Font("Arial", 10);
+
+                    string headerText = "Ваш номер очереди:";
+                    string numberText = !string.IsNullOrEmpty(ticket.displayNumber)
+                        ? ticket.displayNumber
+                        : ticket.number.ToString("D3");
+
+                    string dateLabel = "Дата и время:";
+                    string dateText = ticket.timestamp.ToString("dd.MM.yyyy HH:mm");
+
+                    // === PRINT ===
+                    e.Graphics.DrawString(headerText, headerFont, Brushes.Black, 10, y);
+                    y += 40;
+
+                    e.Graphics.DrawString(numberText, numberFont, Brushes.Black, 10, y);
+                    y += 110;
+
+                    e.Graphics.DrawString(dateLabel, smallFont, Brushes.Black, 10, y);
+                    y += 20;
+
+                    e.Graphics.DrawString(dateText, smallFont, Brushes.Black, 10, y);
                 };
 
                 doc.Print();
