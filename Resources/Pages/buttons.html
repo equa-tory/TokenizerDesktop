@@ -65,6 +65,15 @@
             }
         }
 
+        function togglePrintDebug(){
+            window.external.TogglePrintDebug();
+
+            var el = document.getElementById('debugState');
+            if (el.innerText == "On") {
+                el.innerText = "Off"
+            }else el.innerText = "On"
+        }
+
     </script>
 </head>
 
@@ -74,6 +83,8 @@
         <label for="printer">Выберите принтер: </label>
         <select id="printer"><option value="None">— Не печатать —</option></select>
     </p>
+    <button onclick="togglePrintDebug()">Toggle print debug</button>
+    <span id="debugState"></span>
     <h2>Типы талонов</h2>
     <div id="buttons"><span class="loading">Loading...</span></div>
     <script type="text/javascript">

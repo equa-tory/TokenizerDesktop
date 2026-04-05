@@ -14,7 +14,7 @@ namespace TicketApp
             printerName = printer;
         }
 
-        public void PrintTicket(Ticket ticket)
+        public void PrintTicket(Ticket ticket, bool printDebug)
         {
             if (printerName == "None") return;
 
@@ -29,7 +29,7 @@ namespace TicketApp
 
                     // === CONFIG ===
                     Font headerFont = new Font("Arial", 14, FontStyle.Bold);
-                    Font numberFont = new Font("Arial", 72, FontStyle.Bold);
+                    Font numberFont = new Font("Arial", 40, FontStyle.Bold);
                     Font smallFont = new Font("Arial", 10);
 
                     string headerText = "Ваш номер очереди:";
@@ -45,15 +45,27 @@ namespace TicketApp
                     y += 40;
 
                     e.Graphics.DrawString(numberText, numberFont, Brushes.Black, 10, y);
-                    y += 110;
+                    y += 80;
 
                     e.Graphics.DrawString(dateLabel, smallFont, Brushes.Black, 10, y);
                     y += 20;
 
                     e.Graphics.DrawString(dateText, smallFont, Brushes.Black, 10, y);
+
                 };
 
-                doc.Print();
+                if(printDebug == true){
+
+                    PrintPreviewDialog preview = new PrintPreviewDialog();
+                    preview.Document = doc;
+                    preview.Width = 800;
+                    preview.Height = 600;
+                    preview.ShowDialog();
+                }
+                else
+                {
+                    doc.Print();
+                }
             }
             catch (Exception)
             {

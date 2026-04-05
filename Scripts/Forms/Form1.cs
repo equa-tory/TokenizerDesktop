@@ -10,6 +10,7 @@ namespace TicketApp
     [System.Runtime.InteropServices.ComVisible(true)]
     public class ScriptManager
     {
+        public bool printDebug = false;
         /// <summary>
         /// Called from HTML/JS: returns JSON string of ticket types from API.
         /// </summary>
@@ -89,7 +90,7 @@ namespace TicketApp
             ticketObj.timestamp = DateTime.Now;
 
             PrinterManager pm = new PrinterManager(printerName);
-            pm.PrintTicket(ticketObj);
+            pm.PrintTicket(ticketObj, printDebug);
         }
 
 
@@ -103,6 +104,11 @@ namespace TicketApp
             {
                 return "{\"error\":\"" + ex.Message.Replace("\"", "'") + "\"}";
             }
+        }
+
+        public void TogglePrintDebug()
+        {
+            printDebug = !printDebug;
         }
     }
 
